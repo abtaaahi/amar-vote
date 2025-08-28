@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-gray-50 text-gray-900">
-        <main className="container mx-auto p-4">{children}</main>
+        <main className="container mx-auto">{children}</main>
       </body>
     </html>
   );
