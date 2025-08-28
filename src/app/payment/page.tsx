@@ -16,12 +16,22 @@ export default function PaymentPage() {
 
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const [queryData, setQueryData] = useState({
+    party: "",
+    name: "",
+    email: "",
+    phone: "",
+  });
 
-  // Get vote info from query params
-  const party = searchParams.get("party") || "";
-  const name = searchParams.get("name") || "";
-  const email = searchParams.get("email") || "";
-  const phone = searchParams.get("phone") || "";
+  useEffect(() => {
+    if (!searchParams) return;
+    setQueryData({
+      party: searchParams.get("party") || "",
+      name: searchParams.get("name") || "",
+      email: searchParams.get("email") || "",
+      phone: searchParams.get("phone") || "",
+    });
+  }, [searchParams]);
 
   useEffect(() => {
     // Redirect if not logged in
@@ -49,11 +59,11 @@ export default function PaymentPage() {
       const voteRef = collection(db, "votes");
 
       await setDoc(doc(voteRef), {
-        party,
+        party: queryData.party,
         user: {
-          name,
-          email,
-          phone,
+          name: queryData.name,
+          email: queryData.email,
+          phone: queryData.phone,
         },
         amountSent: formData.amount,
         mobileNumber: formData.mobile,
@@ -61,7 +71,6 @@ export default function PaymentPage() {
       });
 
       setMessage("আপনার ডোনেশন এবং ভোটের তথ্য সফলভাবে সংরক্ষিত হয়েছে!");
-      // Optionally redirect to a confirmation page
       router.push("/confirmation");
     } catch (error) {
       console.error(error);
@@ -74,7 +83,7 @@ export default function PaymentPage() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center p-6">
       <h1 className="text-3xl font-bold text-gray-800 mb-4 text-center">
-        {party} দলের জন্য ডোনেশন করুন
+        {queryData.party} দলের জন্য ডোনেশন করুন
       </h1>
       <p className="text-gray-700 mb-6 max-w-xl text-center">
         আপনার সহযোগিতা দলের জন্য গুরুত্বপূর্ণ। দয়া করে নিচের ফর্মটি পূরণ করুন।
@@ -95,7 +104,6 @@ export default function PaymentPage() {
           onSubmit={handleSubmit}
           className="md:w-1/2 w-full bg-white p-6 rounded-xl shadow space-y-4 flex flex-col"
         >
-          {/* Amount */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">পঠানো টাকা (Amount)</label>
             <input
@@ -109,7 +117,6 @@ export default function PaymentPage() {
             />
           </div>
 
-          {/* Mobile Number */}
           <div>
             <label className="block text-gray-700 font-medium mb-1">bKash/Nagad মোবাইল নম্বর</label>
             <input
