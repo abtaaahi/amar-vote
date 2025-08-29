@@ -31,11 +31,11 @@ export default function PollPage() {
             phone: data.phone || "",
           });
         } else {
-          alert("ব্যবহারকারীর তথ্য পাওয়া যায়নি। দয়া করে রিফ্রেশ করুন।");
+          alert("User information not found. Please refresh the page.");
         }
       } catch (error) {
         console.error(error);
-        alert("ব্যবহারকারীর তথ্য আনতে সমস্যা হয়েছে।");
+        alert("There was a problem fetching your user information.");
       } finally {
         setLoading(false);
       }
@@ -47,7 +47,7 @@ export default function PollPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedParty) {
-      alert("দয়া করে একটি রাজনৈতিক দল নির্বাচন করুন!");
+      alert("Please select a political party before continuing!");
       return;
     }
 
@@ -61,7 +61,7 @@ export default function PollPage() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-600 text-lg">তথ্য লোড হচ্ছে...</p>
+        <p className="text-gray-600 text-lg">Loading information...</p>
       </div>
     );
   }
@@ -69,11 +69,12 @@ export default function PollPage() {
   return (
     <div className="min-h-screen bg-gray-50 p-6 flex flex-col items-center">
       <h1 className="text-3xl font-bold mb-4 text-gray-800 text-center">
-        ভোট দিন আপনার প্রিয় রাজনৈতিক দলের জন্য
+        Cast Your Vote for Your Preferred Political Party
       </h1>
       <p className="text-gray-700 mb-6 max-w-xl text-center">
-        আপনার ভোট গুরুত্বপূর্ণ। এটি গণতান্ত্রিক প্রক্রিয়ার অংশ এবং দেশের উন্নয়নে প্রভাব ফেলে। দয়া করে
-        একটি দল নির্বাচন করুন এবং আপনার ভোট নিশ্চিত করুন।
+        Your vote matters. It is an important part of the democratic process and
+        plays a role in shaping the future of the country. Please select a party
+        below and confirm your vote.
       </p>
 
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
@@ -89,7 +90,9 @@ export default function PollPage() {
           onSubmit={handleSubmit}
           className="md:w-1/2 w-full bg-white p-6 rounded-xl shadow space-y-4 flex flex-col"
         >
-          <h2 className="text-xl font-semibold text-gray-800 mb-2">রাজনৈতিক দল নির্বাচন করুন:</h2>
+          <h2 className="text-xl font-semibold text-gray-800 mb-2">
+            Select a Political Party:
+          </h2>
           {parties.map((party) => (
             <label
               key={party.id}
@@ -111,7 +114,7 @@ export default function PollPage() {
             type="submit"
             className="mt-4 bg-gradient-to-r from-green-500 to-blue-600 text-white p-3 rounded-lg font-semibold shadow hover:from-green-600 hover:to-blue-700 transition"
           >
-            ভোট জমা দিন
+            Submit Vote
           </button>
         </form>
       </div>

@@ -24,14 +24,14 @@ export default function HomePage() {
       {/* Left: Text & buttons */}
       <div className="flex flex-col items-center md:items-start max-w-md text-center md:text-left">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-          Amar Vote এ আপনাকে স্বাগতম
+          Welcome to Amar Vote
         </h1>
         <p className="text-gray-700 mb-6">
-          এখানে আপনি আপনার পছন্দের রাজনৈতিক দলের জন্য ভোট দিতে পারবেন এবং সাম্প্রতিক রাজনৈতিক প্রবন্ধ ও খবর দেখতে পারবেন।
+          Here you can vote for your preferred political party and view the latest political articles and news.
         </p>
 
         {/* Hint text */}
-        <p className="text-gray-600 mb-2">ভোট দিতে বা আপনার অ্যাকাউন্ট ব্যবহারের জন্য লগইন করুন:</p>
+        <p className="text-gray-600 mb-2">Log in to vote or access your account:</p>
 
         <div className="flex flex-col sm:flex-row gap-4 w-full">
           <a
@@ -44,12 +44,12 @@ export default function HomePage() {
             href="/signup"
             className="flex-1 text-center px-6 py-3 bg-gradient-to-r from-green-500 to-green-700 text-white font-semibold rounded-lg shadow hover:from-green-600 hover:to-green-800 transition"
           >
-            Signup করুন
+            Signup
           </a>
         </div>
 
         <p className="text-gray-600 mt-4">
-          নতুন ব্যবহারকারী? <a href="/signup" className="text-green-700 font-semibold hover:underline">এখান থেকে সাইন আপ করুন</a>
+          New user? <a href="/signup" className="text-green-700 font-semibold hover:underline">Sign up here</a>
         </p>
       </div>
 

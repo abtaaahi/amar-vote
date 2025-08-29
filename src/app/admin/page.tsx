@@ -60,7 +60,7 @@ export default function AdminPage() {
       setIsAuthorized(true);
       fetchData();
     } else {
-      alert("পিন ভুল!");
+      alert("Wrong PIN!");
     }
   };
 
@@ -131,7 +131,7 @@ export default function AdminPage() {
       setVoteList(votesData);
     } catch (error) {
       console.error("Error fetching data:", error);
-      alert("ডেটা লোড করতে সমস্যা হয়েছে।");
+      alert("Failed to load data.");
     }
     setLoading(false);
   };
@@ -143,10 +143,10 @@ export default function AdminPage() {
           onSubmit={handlePinSubmit}
           className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm"
         >
-          <h1 className="text-2xl font-bold mb-4 text-center">অ্যাডমিন লগইন</h1>
+          <h1 className="text-2xl font-bold mb-4 text-center">Admin Login</h1>
           <input
             type="password"
-            placeholder="পিন লিখুন"
+            placeholder="Enter PIN"
             value={pinInput}
             onChange={(e) => setPinInput(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 mb-4"
@@ -155,7 +155,7 @@ export default function AdminPage() {
             type="submit"
             className="w-full bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition"
           >
-            লগইন
+            Login
           </button>
         </form>
       </div>
@@ -164,9 +164,9 @@ export default function AdminPage() {
 
   return (
     <div className="min-h-screen p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold text-center mb-6">অ্যাডমিন ড্যাশবোর্ড</h1>
+      <h1 className="text-3xl font-bold text-center mb-6">Admin Dashboard</h1>
       {loading ? (
-        <p className="text-center">লোড হচ্ছে...</p>
+        <p className="text-center">Loading...</p>
       ) : (
         <div className="space-y-8">
           {/* Feedback Table */}

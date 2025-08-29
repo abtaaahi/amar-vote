@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { setPersistence, browserLocalPersistence } from "firebase/auth";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -42,38 +40,37 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, formData.email, formData.password);
       router.push("/home"); // redirect on successful login
     } catch (error: unknown) {
-    let msg = "লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+      let msg = "Login failed. Please try again.";
 
-    if (error instanceof Error) {
-      // Check if error has a 'code' property
-      const firebaseError = error as { code?: string };
-      const code = firebaseError.code;
+      if (error instanceof Error) {
+        const firebaseError = error as { code?: string };
+        const code = firebaseError.code;
 
-      switch (code) {
-        case "auth/user-not-found":
-          msg = "এই ইমেইল দিয়ে কোনো ব্যবহারকারী পাওয়া যায়নি।";
-          break;
-        case "auth/wrong-password":
-          msg = "পাসওয়ার্ড ভুল হয়েছে। আবার চেষ্টা করুন।";
-          break;
-        case "auth/invalid-email":
-          msg = "ইমেইল সঠিক নয়।";
-          break;
-        case "auth/too-many-requests":
-          msg = "অনেকবার ভুল হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।";
-          break;
-        default:
-          msg = "লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।";
+        switch (code) {
+          case "auth/user-not-found":
+            msg = "No user found with this email.";
+            break;
+          case "auth/wrong-password":
+            msg = "Incorrect password. Please try again.";
+            break;
+          case "auth/invalid-email":
+            msg = "Invalid email address.";
+            break;
+          case "auth/too-many-requests":
+            msg = "Too many failed attempts. Please try again later.";
+            break;
+          default:
+            msg = "Login failed. Please try again.";
+        }
       }
-    }
 
-    setMessage(msg);
-  }
+      setMessage(msg);
+    }
 
     setLoading(false);
   };
 
-return (
+  return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-100">
       <div className="w-full max-w-md bg-gradient-to-br from-pink-50 via-purple-50 to-blue-50 rounded-2xl shadow-xl overflow-hidden">
         
@@ -89,7 +86,7 @@ return (
         {/* Form */}
         <div className="p-6 md:p-8">
           <h1 className="text-3xl font-extrabold text-center text-purple-800 mb-6">
-            লগইন করুন
+            Login
           </h1>
 
           {message && (
@@ -99,7 +96,7 @@ return (
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Email */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">ইমেইল</label>
+              <label className="block text-purple-700 font-medium mb-1">Email</label>
               <input
                 type="email"
                 name="email"
@@ -113,7 +110,7 @@ return (
 
             {/* Password */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">পাসওয়ার্ড</label>
+              <label className="block text-purple-700 font-medium mb-1">Password</label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -129,7 +126,7 @@ return (
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-purple-600 font-medium"
                 >
-                  {showPassword ? "লুকান" : "দেখান"}
+                  {showPassword ? "Hide" : "Show"}
                 </button>
               </div>
             </div>
@@ -140,18 +137,18 @@ return (
               disabled={loading}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-xl font-bold shadow-lg hover:from-purple-700 hover:to-pink-600 transition"
             >
-              {loading ? "লগইন হচ্ছে..." : "লগইন করুন"}
+              {loading ? "Logging in..." : "Login"}
             </button>
           </form>
 
           {/* Signup */}
           <p className="mt-5 text-center text-purple-700">
-            নতুন ব্যবহারকারী?{" "}
+            New user?{" "}
             <Link
               href="/signup"
               className="font-semibold underline hover:text-pink-600"
             >
-              সাইনআপ করুন
+              Sign up
             </Link>
           </p>
         </div>

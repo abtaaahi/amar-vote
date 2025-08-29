@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { auth, db } from "@/lib/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { onAuthStateChanged } from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
-import { setPersistence, browserLocalPersistence } from "firebase/auth";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -97,7 +95,7 @@ export default function SignupPage() {
         {/* Form */}
         <div className="p-6 md:p-8">
           <h1 className="text-3xl font-extrabold text-center text-purple-800 mb-6">
-            নতুন অ্যাকাউন্ট তৈরি করুন
+            Create a New Account
           </h1>
 
           {message && (
@@ -107,13 +105,13 @@ export default function SignupPage() {
           <form onSubmit={handleSubmit} className="space-y-5">
             {/* Name */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">পুরো নাম</label>
+              <label className="block text-purple-700 font-medium mb-1">Full Name</label>
               <input
                 type="text"
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="রহিম উদ্দিন"
+                placeholder="John Doe"
                 className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
@@ -121,13 +119,13 @@ export default function SignupPage() {
 
             {/* Phone */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">মোবাইল নম্বর</label>
+              <label className="block text-purple-700 font-medium mb-1">Phone Number</label>
               <input
                 type="text"
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+8801XXXXXXXXX"
+                placeholder="+1234567890"
                 className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
@@ -135,7 +133,7 @@ export default function SignupPage() {
 
             {/* Email */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">ইমেইল</label>
+              <label className="block text-purple-700 font-medium mb-1">Email</label>
               <input
                 type="email"
                 name="email"
@@ -149,7 +147,7 @@ export default function SignupPage() {
 
             {/* Password */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">পাসওয়ার্ড</label>
+              <label className="block text-purple-700 font-medium mb-1">Password</label>
               <input
                 type="password"
                 name="password"
@@ -163,13 +161,13 @@ export default function SignupPage() {
 
             {/* Address */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">ঠিকানা</label>
+              <label className="block text-purple-700 font-medium mb-1">Address</label>
               <input
                 type="text"
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                placeholder="ঢাকা, বাংলাদেশ"
+                placeholder="New York, USA"
                 className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
@@ -177,13 +175,13 @@ export default function SignupPage() {
 
             {/* Age */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">বয়স</label>
+              <label className="block text-purple-700 font-medium mb-1">Age</label>
               <input
                 type="number"
                 name="age"
                 value={formData.age}
                 onChange={handleChange}
-                placeholder="২৫"
+                placeholder="25"
                 className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               />
@@ -191,7 +189,7 @@ export default function SignupPage() {
 
             {/* Marital Status */}
             <div>
-              <label className="block text-purple-700 font-medium mb-1">বৈবাহিক অবস্থা</label>
+              <label className="block text-purple-700 font-medium mb-1">Marital Status</label>
               <select
                 name="maritalStatus"
                 value={formData.maritalStatus}
@@ -199,10 +197,10 @@ export default function SignupPage() {
                 className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
                 required
               >
-                <option value="Single">একক</option>
-                <option value="Married">বিবাহিত</option>
-                <option value="Divorced">তালাকপ্রাপ্ত</option>
-                <option value="Widowed">বিধবা/বিধুর</option>
+                <option value="Single">Single</option>
+                <option value="Married">Married</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
               </select>
             </div>
 
@@ -212,7 +210,7 @@ export default function SignupPage() {
               disabled={loading}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-xl font-bold shadow-lg hover:from-purple-700 hover:to-pink-600 transition"
             >
-              {loading ? "অ্যাকাউন্ট তৈরি হচ্ছে..." : "সাইনআপ করুন"}
+              {loading ? "Creating Account..." : "Sign Up"}
             </button>
           </form>
         </div>

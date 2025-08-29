@@ -18,7 +18,7 @@ export default function ThankYou() {
 
         {/* Heading */}
         <h1 className="text-4xl font-extrabold text-green-900 mb-6">
-          ধন্যবাদ
+          Thank You
         </h1>
 
         {/* Icon (headset / message style) */}
@@ -35,10 +35,10 @@ export default function ThankYou() {
 
         {/* Message */}
         <p className="text-gray-700 mb-8">
-          আমরা শীঘ্রই আপনার বার্তা পৌঁছে দেব।.
+          We will deliver your message shortly.
         </p>
 
-        {/* হোম বোতাম */}
+        {/* Home Button */}
         <button
           onClick={() => router.push("/")}
           className="flex items-center justify-center gap-2 w-full py-3 rounded-lg bg-white shadow-md text-green-900 font-semibold hover:bg-gray-100 transition"
@@ -58,7 +58,7 @@ export default function ThankYou() {
               d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h4a1 1 0 001-1v-4h4v4a1 1 0 001 1h4a1 1 0 001-1V10"
             />
           </svg>
-          হোম 
+          Home
         </button>
       </div>
     </div>

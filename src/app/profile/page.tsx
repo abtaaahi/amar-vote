@@ -45,10 +45,10 @@ export default function ProfilePage() {
           maritalStatus: data.maritalStatus || "Single",
         });
       } else {
-        setError("ব্যবহারকারীর তথ্য পাওয়া যায়নি। রিফ্রেশ করুন।");
+        setError("User data not found. Please refresh the page.");
       }
     } catch (err) {
-      setError("ডেটা আনতে সমস্যা হয়েছে। রিফ্রেশ করুন।");
+      setError("Failed to fetch data. Please refresh and try again.");
       console.error(err);
     }
     setFetching(false);
@@ -73,9 +73,9 @@ export default function ProfilePage() {
     try {
       const docRef = doc(db, "users", user.uid);
       await setDoc(docRef, formData, { merge: true });
-      setMessage("আপনার তথ্য সফলভাবে আপডেট হয়েছে!");
+      setMessage("Your information has been updated successfully!");
     } catch (err) {
-      setError("আপডেট ব্যর্থ হয়েছে। আবার চেষ্টা করুন।");
+      setError("Update failed. Please try again.");
       console.error(err);
     }
     setLoading(false);
@@ -93,7 +93,7 @@ export default function ProfilePage() {
   if (fetching) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-100">
-        <p className="text-gray-600 text-lg mb-4">লোড হচ্ছে...</p>
+        <p className="text-gray-600 text-lg mb-4">Loading...</p>
         <div className="loader border-t-4 border-purple-500 rounded-full w-12 h-12 animate-spin"></div>
       </div>
     );
@@ -101,7 +101,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-start bg-gradient-to-br from-yellow-50 via-pink-50 to-purple-100 p-6">
-      <h1 className="text-3xl font-extrabold mb-6 text-center text-purple-800">আপনার প্রোফাইল</h1>
+      <h1 className="text-3xl font-extrabold mb-6 text-center text-purple-800">Your Profile</h1>
 
       {/* Profile Image */}
       <div className="mb-6">
@@ -129,20 +129,20 @@ export default function ProfilePage() {
         <form onSubmit={handleUpdate} className="space-y-4">
 
           <div>
-            <label className="block text-purple-700 font-medium mb-1">পুরো নাম</label>
+            <label className="block text-purple-700 font-medium mb-1">Full Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="রহিম উদ্দিন"
+              placeholder="John Doe"
               className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             />
           </div>
 
           <div>
-            <label className="block text-purple-700 font-medium mb-1">মোবাইল নম্বর</label>
+            <label className="block text-purple-700 font-medium mb-1">Phone Number</label>
             <input
               type="text"
               name="phone"
@@ -155,33 +155,33 @@ export default function ProfilePage() {
           </div>
 
           <div>
-            <label className="block text-purple-700 font-medium mb-1">ঠিকানা</label>
+            <label className="block text-purple-700 font-medium mb-1">Address</label>
             <input
               type="text"
               name="address"
               value={formData.address}
               onChange={handleChange}
-              placeholder="ঢাকা, বাংলাদেশ"
+              placeholder="Dhaka, Bangladesh"
               className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             />
           </div>
 
           <div>
-            <label className="block text-purple-700 font-medium mb-1">বয়স</label>
+            <label className="block text-purple-700 font-medium mb-1">Age</label>
             <input
               type="number"
               name="age"
               value={formData.age}
               onChange={handleChange}
-              placeholder="২৫"
+              placeholder="25"
               className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             />
           </div>
 
           <div>
-            <label className="block text-purple-700 font-medium mb-1">বৈবাহিক অবস্থা</label>
+            <label className="block text-purple-700 font-medium mb-1">Marital Status</label>
             <select
               name="maritalStatus"
               value={formData.maritalStatus}
@@ -189,10 +189,10 @@ export default function ProfilePage() {
               className="w-full p-3 rounded-xl bg-purple-50 border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-400"
               required
             >
-              <option value="Single">একক</option>
-              <option value="Married">বিবাহিত</option>
-              <option value="Divorced">তালাকপ্রাপ্ত</option>
-              <option value="Widowed">বিধবা/বিধুর</option>
+              <option value="Single">Single</option>
+              <option value="Married">Married</option>
+              <option value="Divorced">Divorced</option>
+              <option value="Widowed">Widowed</option>
             </select>
           </div>
 
@@ -201,7 +201,7 @@ export default function ProfilePage() {
             disabled={loading}
             className="w-full bg-gradient-to-r from-purple-600 to-pink-500 text-white p-3 rounded-xl font-bold shadow-lg hover:from-purple-700 hover:to-pink-600 transition"
           >
-            {loading ? "আপডেট হচ্ছে..." : "আপডেট করুন"}
+            {loading ? "Updating..." : "Update Profile"}
           </button>
         </form>
 
@@ -209,7 +209,7 @@ export default function ProfilePage() {
           onClick={handleLogout}
           className="mt-6 w-full bg-red-500 text-white p-3 rounded-xl font-bold shadow hover:bg-red-600 transition"
         >
-          লগ আউট
+          Log Out
         </button>
       </div>
     </div>

@@ -36,7 +36,7 @@ export default function Feedback() {
       router.push("/thankyou");
     } catch (error) {
       console.error("Error saving feedback:", error);
-      alert("কিছু ভুল হয়েছে, আবার চেষ্টা করুন।");
+      alert("Something went wrong, please try again.");
     } finally {
       setLoading(false);
     }
@@ -47,9 +47,9 @@ export default function Feedback() {
       <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-lg border border-green-300">
         {/* Header */}
         <div className="text-center mb-6">
-          <h1 className="text-2xl font-extrabold text-green-800">💬 আপনার মতামত দিন</h1>
+          <h1 className="text-2xl font-extrabold text-green-800">💬 Give Your Feedback</h1>
           <p className="text-gray-600 text-sm mt-1">
-            আপনার মতামত আমাদের জন্য গুরুত্বপূর্ণ। দয়া করে নিচের ফর্ম পূরণ করুন।
+            Your opinion is important to us. Please fill out the form below.
           </p>
         </div>
 
@@ -57,21 +57,21 @@ export default function Feedback() {
         <form onSubmit={handleSubmit} className="space-y-5">
           {/* Name */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">নাম</label>
+            <label className="block text-sm font-semibold text-gray-700">Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-600 focus:outline-none"
-              placeholder="রহিম উদ্দিন"
+              placeholder="John Doe"
               required
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">ইমেইল</label>
+            <label className="block text-sm font-semibold text-gray-700">Email</label>
             <input
               type="email"
               name="email"
@@ -85,20 +85,20 @@ export default function Feedback() {
 
           {/* Company */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">কোম্পানি (ঐচ্ছিক)</label>
+            <label className="block text-sm font-semibold text-gray-700">Company (Optional)</label>
             <input
               type="text"
               name="company"
               value={formData.company}
               onChange={handleChange}
               className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-600 focus:outline-none"
-              placeholder="কোম্পানি নাম"
+              placeholder="Company Name"
             />
           </div>
 
           {/* Category */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">শ্রেণী</label>
+            <label className="block text-sm font-semibold text-gray-700">Category</label>
             <select
               name="category"
               value={formData.category}
@@ -106,23 +106,23 @@ export default function Feedback() {
               className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-600 focus:outline-none"
               required
             >
-              <option value="">একটি বেছে নিন</option>
-              <option value="feedback">প্রতিক্রিয়া</option>
-              <option value="support">সমর্থন</option>
-              <option value="other">অন্যান্য</option>
+              <option value="">Select one</option>
+              <option value="feedback">Feedback</option>
+              <option value="support">Support</option>
+              <option value="other">Other</option>
             </select>
           </div>
 
           {/* Message */}
           <div>
-            <label className="block text-sm font-semibold text-gray-700">বার্তা</label>
+            <label className="block text-sm font-semibold text-gray-700">Message</label>
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               className="w-full bg-gray-50 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-600 focus:outline-none"
               rows={4}
-              placeholder="আপনার বার্তা লিখুন..."
+              placeholder="Write your message here..."
             />
           </div>
 
@@ -132,7 +132,7 @@ export default function Feedback() {
             disabled={loading}
             className="w-full py-3 rounded-lg bg-green-700 hover:bg-green-800 text-white font-bold text-lg shadow-md transition disabled:opacity-50"
           >
-            {loading ? "পাঠানো হচ্ছে..." : "জমা দিন 🚀"}
+            {loading ? "Sending..." : "Submit 🚀"}
           </button>
         </form>
       </div>
